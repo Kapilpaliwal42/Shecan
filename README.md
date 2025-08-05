@@ -1,417 +1,282 @@
-User Dashboard and Leaderboard Application
-This application provides a comprehensive platform for managing user profiles, tracking donations, and displaying a real-time leaderboard. It's designed to be easily extendable and serves as a robust foundation for community-driven initiatives or internal team management where tracking contributions and engagement is key. The backend is built with Node.js and Express, utilizing MongoDB for data persistence, while the frontend is a dynamic React application styled with Tailwind CSS, ensuring a responsive and modern user experience. A unique feature is the integrated referral system, which incentivizes user growth by rewarding both the referrer and the new user upon successful registration.
 
-Features
-Authentication & Authorization:
+# User Dashboard and Leaderboard Application
 
-User registration with email, name, and password.
+This application provides a comprehensive platform for managing user profiles, tracking donations, and displaying a real-time leaderboard. It's designed to be easily extendable and serves as a robust foundation for community-driven initiatives or internal team management where tracking contributions and engagement is key.
 
-User login with JWT-based authentication for secure session management.
+The backend is built with **Node.js** and **Express**, utilizing **MongoDB** for data persistence, while the frontend is a dynamic **React** application styled with **Tailwind CSS**, ensuring a responsive and modern user experience.
 
-Role-based access control (User, Admin, Superadmin) for specific backend routes, ensuring data integrity and administrative privileges.
+A unique feature is the integrated **referral system**, which incentivizes user growth by rewarding both the referrer and the new user upon successful registration.
 
-Secure password hashing using bcrypt to protect user credentials.
 
-User Management:
+## ✨ Features
 
-Personalized user dashboard displaying intern name, a unique referral code (username), total donations raised, and current credits.
+### 🔐 Authentication & Authorization:
+- User registration with email, name, and password.
+- JWT-based login for secure session management.
+- Role-based access control: `User`, `Admin`, `Superadmin`.
+- Secure password hashing with `bcrypt`.
 
-A static rewards/unlockables section on the dashboard to motivate users.
+### 👤 User Management:
+- Personalized dashboard displaying:
+  - Intern name
+  - Unique referral code (username)
+  - Total donations raised
+  - Current credits
+- Static rewards/unlockables section to motivate users.
+- Admins/Superadmins can:
+  - Change user roles (with hierarchy checks).
+- Dynamic leaderboard showing users sorted by donations.
 
-Admin/Superadmin ability to change user roles (with hierarchy checks to prevent unauthorized privilege escalation).
+### 🤝 Referral System:
+- Users can register using a referral code (another user’s username).
+- Both referrer and referred user receive **10 credits**.
 
-A dynamic leaderboard displaying all registered users, sorted by their total donations, providing a competitive and transparent overview.
+---
 
-Referral System:
+## 💻 Technologies Used
 
-Users can register with an optional referral code (another user's username).
+### Backend:
+- `Node.js`, `Express.js`
+- `MongoDB` with `Mongoose`
+- `jsonwebtoken` for JWT authentication
+- `bcrypt` for password hashing
+- `dotenv`, `CORS`
 
-If a valid referral code is used, both the new user and the referrer automatically receive 10 credits, fostering community growth.
+### Frontend:
+- `React`
+- `Tailwind CSS`
 
-Technologies Used
-Backend:
+---
 
-Node.js: JavaScript runtime.
+## ⚙️ Setup Instructions
 
-Express.js: Web application framework for Node.js.
+### Prerequisites
+- Node.js (LTS recommended)
+- MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
 
-MongoDB: NoSQL database for data storage.
+---
 
-Mongoose: ODM (Object Data Modeling) library for MongoDB and Node.js.
+## 📦 Backend Setup
 
-JWT (jsonwebtoken): For creating and verifying authentication tokens.
+1. **Clone the repository** or place your backend files (`index.js`, `DBconnect.js`, `Routes.js`, etc.) in a project folder.
 
-Bcrypt: For hashing passwords securely.
+2. **Install dependencies**:
+   ```bash
+   npm install
 
-Dotenv: For loading environment variables.
 
-CORS: Middleware for enabling Cross-Origin Resource Sharing.
+3. **Configure environment variables**:
 
-Frontend:
+   Create a `.env` file in the backend root with:
 
-React: JavaScript library for building user interfaces.
+   ```
+   KEY=your_jwt_secret_key_here
+   PORT=3000
+   DATABASE=mongodb://localhost:27017/bidding
+   ```
 
-Tailwind CSS: A utility-first CSS framework for styling.
+4. **Start MongoDB**:
 
-Setup Instructions
-Prerequisites
-Node.js (LTS version recommended)
+   ```bash
+   mongod
+   ```
 
-MongoDB (Community Edition or MongoDB Atlas)
+5. **Run the backend server**:
 
-1. Backend Setup
-Clone the repository (if applicable) or ensure you have all backend files:
-index.js, DBconnect.js, Routes.js, AuthControllers.js, middlewares.js, Users.js, package.json, package-lock.json, .env
+   ```bash
+   node index.js
+   ```
 
-Install dependencies:
-Navigate to your backend project directory in your terminal and run:
+   Output:
 
-npm install
+   ```
+   database connection successful!!
+   Server is running on port 3000
+   ```
 
-Configure Environment Variables:
-Create a .env file in the root of your backend directory with the following content:
+---
 
-KEY=your_jwt_secret_key_here # Use a strong, random key
-PORT=3000
-DATABASE=mongodb://localhost:27017/bidding # Replace with your MongoDB connection string
+## 🧑‍💻 Frontend Setup
 
-KEY: A secret key used to sign and verify JWTs. Make it long and complex.
+1. **Create React app**:
 
-PORT: The port your backend server will run on.
+   ```bash
+   npx create-react-app my-dashboard-app
+   cd my-dashboard-app
+   ```
 
-DATABASE: Your MongoDB connection string. If using local MongoDB, ensure 27017 is the correct port. If using MongoDB Atlas, copy your connection string from there.
+2. **Install Tailwind CSS**:
 
-Start the MongoDB Server:
-Ensure your MongoDB instance is running. If running locally, you might start it via mongod command in your terminal.
+   ```bash
+   npm install -D tailwindcss postcss autoprefixer
+   npx tailwindcss init -p
+   ```
 
-Run the Backend Server:
+3. **Configure Tailwind** (in `tailwind.config.js`):
 
-node index.js
+   ```js
+   content: [
+     "./src/**/*.{js,jsx,ts,tsx}",
+   ],
+   ```
 
-You should see database connection successful!! and Server is running on port 3000 (or your chosen PORT).
+4. **Import Tailwind styles** in `index.css`:
 
-2. Frontend Setup
-Ensure you have the frontend React files:
-App.jsx (which contains the main application logic, including API calls)
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
 
-Create a new React project (if you don't have one):
+5. **Replace `src/App.js` with provided `App.jsx` code.**
 
-npx create-react-app my-dashboard-app
-cd my-dashboard-app
+6. **Run the React app**:
 
-Install Tailwind CSS:
-Follow the official Tailwind CSS installation guide for React:
+   ```bash
+   npm start
+   ```
 
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+---
 
-Configure your tailwind.config.js and index.css (or App.css) as per Tailwind's instructions to include their directives.
+## 🚀 Usage
 
-Replace src/App.js (or src/App.jsx) with the provided App.jsx code.
+### ✅ Register
 
-Start the Frontend Development Server:
+* Go to `/signup`
+* Enter Name, Email, Password
+* (Optional) Referral Code
+* Click **Signup**
+<img width="921" height="882" alt="Screenshot 2025-08-06 015500" src="https://github.com/user-attachments/assets/b0de2a40-fa3e-485e-8e48-cc092953ab8b" />
 
-npm start
+### 🔐 Login
 
-This will typically open the application in your browser at http://localhost:3001 (or another available port).
+* Go to `/login`
+* Enter Email and Password
+* Click **Login**
+<img width="972" height="874" alt="Screenshot 2025-08-06 015736" src="https://github.com/user-attachments/assets/b665788c-696b-41d2-866a-0ea14eba1b89" />
 
-Usage
-Register:
+### 📊 Dashboard
 
-Go to the signup page.
+* Shows:
 
-Fill in your Name, Email, and Password.
+  * Intern Name
+  * Referral Code
+  * Total Donations Raised
+  * Current Credits
+* View **Rewards & Unlockables**
+* Buttons:
 
-(Optional) Enter a Referral Code (the username of an existing user).
+  * View Leaderboard
+  * Logout
 
-Click "Signup".
+### 🏆 Leaderboard
 
-If successful, you will be prompted to log in.
+<img width="1417" height="833" alt="Screenshot 2025-08-06 015926" src="https://github.com/user-attachments/assets/bb0040c9-a849-4384-9d43-6e573f5a5aff" />
 
-Screenshot: Registration Page
-<img width="921" height="882" alt="image" src="https://github.com/user-attachments/assets/14180bd4-e3de-4f59-baa9-c046b19b6ac8" />
 
-Login:
+* Lists all users ranked by **Amount** (donations)
+* Return to Dashboard with "Back" button
 
-Enter your registered Email and Password.
+---
 
-Click "Login".
+## 🔗 API Endpoints
 
-Upon successful login, you will be redirected to the Dashboard.
+### 🔒 Authentication
 
-Screenshot: Login Page
-<img width="972" height="874" alt="image" src="https://github.com/user-attachments/assets/d1c9c831-0f63-4b2a-9393-467a9aa428a0" />
+#### `POST /api/auth/register`
 
+Registers a new user (with optional referral).
 
-Dashboard:
-
-View your Intern Name, Referral Code (your unique username), Total Donations Raised, and Current Credits.
-
-See the static Rewards & Unlockables section.
-
-Buttons to "View Leaderboard" and "Logout".
-
-Screenshot: Dashboard Page
-(Please insert screenshot here)
-
-Leaderboard:
-
-Click "View Leaderboard" from the Dashboard.
-
-See a list of all registered users, ranked by their "Amount" (total donations).
-
-Click "Back to Dashboard" to return.
-
-Screenshot: Leaderboard Page
-<img width="1417" height="833" alt="image" src="https://github.com/user-attachments/assets/9f5f2893-2793-49aa-8376-ab3b7b62cb15" />
-
-
-API Endpoints
-All backend API endpoints are prefixed with /api.
-
-Authentication
-POST /api/register
-Description: Registers a new user in the system. If a valid refer username is provided, both the new user and the referrer receive 10 credits.
-
-Request Body:
-
+```json
 {
   "name": "string",
   "email": "string",
   "password": "string",
-  "refer": "string" (optional, username of the referrer)
+  "refer": "string"
 }
+```
 
-Success Response (201 Created):
+#### `POST /api/auth/login`
 
-{
-  "token": "jwt_token_string",
-  "user": {
-    "id": "user_id_string",
-    "email": "user@example.com",
-    "role": "user",
-    "name": "User Name",
-    "username": "UserName12345",
-    "credit": 10,
-    "Amount": 0
-  }
-}
+Returns JWT token.
 
-Error Response (400 Bad Request / 400 User Exists / 500 Internal Server Error):
-
-{
-  "message": "Error description"
-}
-
-POST /api/login
-Description: Authenticates a user and returns a JWT token for subsequent requests.
-
-Request Body:
-
+```json
 {
   "email": "string",
   "password": "string"
 }
+```
 
-Success Response (200 OK):
+---
 
-{
-  "token": "jwt_token_string",
-  "user": {
-    "id": "user_id_string",
-    "name": "User Name",
-    "email": "user@example.com",
-    "role": "user"
-  }
-}
+### 👤 User Profile & Data
 
-Error Response (400 Bad Request / 401 Invalid Credentials / 500 Internal Server Error):
+#### `GET /api/auth/myProfile`
 
-{
-  "message": "Error description"
-}
+Returns authenticated user profile.
+**Header**:
 
-User Profile & Data (Requires Authorization: Bearer <token>)
-GET /api/myProfile
-Description: Retrieves the profile details of the currently authenticated user.
-
-Headers:
-
+```
 Authorization: Bearer <your_jwt_token>
+```
 
-Success Response (200 OK):
+#### `GET /api/auth/getUsers`
 
-{
-  "data": {
-    "_id": "user_id_string",
-    "name": "User Name",
-    "email": "user@example.com",
-    "role": "user",
-    "username": "UserName12345",
-    "credit": 10,
-    "Amount": 0,
-    "__v": 0
-  }
-}
+Returns all users sorted by donation amount.
 
-Error Response (401 Not Authorized / 500 Internal Server Error):
+---
 
-{
-  "message": "Error description"
-}
+### 🔐 Admin/Superadmin Routes
 
-GET /api/getUsers
-Description: Retrieves a list of all registered users in the system. Users are sorted by their Amount (donations) in descending order on the frontend.
+#### `GET /api/auth/admin`
 
-Headers:
+Test endpoint for verifying access.
 
-Authorization: Bearer <your_jwt_token>
-
-Success Response (200 OK):
-
-{
-  "users": [
-    {
-      "_id": "user_id_1",
-      "name": "User One",
-      "email": "user1@example.com",
-      "role": "user",
-      "username": "UserOne123",
-      "credit": 50,
-      "Amount": 150.75,
-      "__v": 0
-    },
-    {
-      "_id": "user_id_2",
-      "name": "User Two",
-      "email": "user2@example.com",
-      "role": "admin",
-      "username": "UserTwo456",
-      "credit": 20,
-      "Amount": 100.00,
-      "__v": 0
-    }
-  ]
-}
-
-Error Response (401 Not Authorized / 500 Internal Server Error):
-
-{
-  "message": "Error description"
-}
-
-Admin/Superadmin Only (Requires Authorization: Bearer <token> and appropriate role)
-GET /api/admin
-Description: A test endpoint to verify admin/superadmin access.
-
-Headers:
-
-Authorization: Bearer <your_jwt_token>
-
-Success Response (200 OK):
-
+```json
 {
   "message": "Welcome Admin"
 }
+```
 
-Error Response (401 Not Authorized / 403 Access Denied / 500 Internal Server Error):
+#### `PUT /api/auth/changeRole`
 
-{
-  "message": "Error description"
-}
+Change user role.
 
-PUT /api/changeRole
-Description: Allows an admin or superadmin to change the role of another user. This operation is subject to hierarchy checks (a user cannot change their own role, or the role of someone with equal or higher hierarchy, nor can they assign a role higher than their own).
-
-Headers:
-
-Authorization: Bearer <your_jwt_token>
-Content-Type: application/json
-
-Request Body:
-
+```json
 {
   "email": "target_user_email@example.com",
   "newRole": "user" | "admin" | "superadmin"
 }
+```
 
-Success Response (200 OK):
+#### `GET /api/auth/users`
 
-{
-  "message": "Role changed to <newRole> for <email>"
-}
+Get all users (admin/superadmin only).
 
-Error Response (400 Invalid Role / 403 Access Denied / 404 User Not Found / 500 Internal Server Error):
+---
 
-{
-  "message": "Error description"
-}
+## 🗂️ Folder Structure
 
-GET /api/users
-Description: Retrieves a list of all users. This endpoint is similar to /api/getUsers but is specifically protected by the authorization middleware to ensure only admin or superadmin roles can access it.
-
-Headers:
-
-Authorization: Bearer <your_jwt_token>
-
-Success Response (200 OK):
-
-{
-  "users": [
-    {
-      "_id": "user_id_1",
-      "name": "User One",
-      "email": "user1@example.com",
-      "role": "user",
-      "username": "UserOne123",
-      "credit": 50,
-      "Amount": 150.75,
-      "__v": 0
-    },
-    {
-      "_id": "user_id_2",
-      "name": "User Two",
-      "email": "user2@example.com",
-      "role": "admin",
-      "username": "UserTwo456",
-      "credit": 20,
-      "Amount": 100.00,
-      "__v": 0
-    }
-  ]
-}
-
-Error Response (401 Not Authorized / 403 Access Denied / 500 Internal Server Error):
-
-{
-  "message": "Error description"
-}
-
-Folder Structure
+```
 .
 ├── backend/
 │   ├── .env
-│   ├── AuthControllers.js
-│   ├── DBconnect.js
 │   ├── index.js
+│   ├── DBconnect.js
+│   ├── Routes.js
+│   ├── AuthControllers.js
+│   ├── Users.js
 │   ├── middlewares.js
 │   ├── package.json
-│   ├── package-lock.json
-│   ├── Routes.js
-│   └── Users.js
-└── frontend/ (or your React app directory)
+│   └── package-lock.json
+└── vite-project/
     ├── public/
     ├── src/
     │   ├── App.jsx
-    │   ├── apiRoutes.jsx (conceptually, functions are in App.jsx for this example)
+    │   ├── apiRoutes.jsx
     │   ├── index.css
-    │   └── ... other React files
-    ├── package.json
+    │   └── ... other files
     ├── tailwind.config.js
-    └── ... other frontend files
+    └── package.json
+```
 
-Contributing
-Feel free to fork this repository, make improvements, and submit pull requests.
-
-License
-This project is licensed under the ISC License.
