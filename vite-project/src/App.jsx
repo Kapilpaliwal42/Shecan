@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // Assume apiRoutes.jsx content is available
 // We'll import the functions directly for this example.
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://shecan-k2pc.onrender.com';
 
 const registerUser = async ({ name, email, password, refer }) => {
   const response = await fetch(`${API_BASE_URL}/register`, {
