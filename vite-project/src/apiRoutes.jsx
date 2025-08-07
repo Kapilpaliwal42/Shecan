@@ -1,6 +1,6 @@
 // Updated API endpoints using fetch instead of axios
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://shecan-k2pc.onrender.com/';
 
 // === AUTH APIs ===
 export const registerUser = async ({ name, email, password, refer }) => {
